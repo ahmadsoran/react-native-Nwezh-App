@@ -3,7 +3,7 @@
 
 
 
-## **What can the app do**
+## **What the app can do**
 
 > 1-remind time of prayer based on your location
 
