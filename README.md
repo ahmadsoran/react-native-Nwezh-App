@@ -9,6 +9,7 @@
 > 2-After 5 min of the call to prayer ends the application will push notification of zikr to read it based on time of
 pray if in the morning will send azkar morning
 > 3-Qibla direction
->
 
-![enter image description here](assets/nwezh1.PNG) ![enter image description here](assets/nwezh1.PNG)
+
+![enter image description here](https://github.com/ahmadsoran/react-native-Nwezh-App/blob/master/assets/nwezh1.png) ![enter image description here]([assets/nwezh1.PNG](https://github.com/ahmadsoran/react-native-Nwezh-App/blob/master/assets/nwezh1.png))
+ 
