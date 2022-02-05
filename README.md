@@ -1,9 +1,6 @@
 # Here is my first react native application
-## *nwezh is a prayer reminder app made with react native*
-
-
-
-## **What the app can do**
+## nwezh is a prayer reminder app made with react native
+### What the app can do
 
 > 1-remind time of prayer based on your location
 
@@ -11,6 +8,6 @@
 
 > 3-Qibla direction
 
-
+**10% completed**
 ![](https://github.com/ahmadsoran/react-native-Nwezh-App/blob/master/assets/nwezh1.png) ![](https://github.com/ahmadsoran/react-native-Nwezh-App/blob/master/assets/nwezh2.png)
  
