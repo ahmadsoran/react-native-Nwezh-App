@@ -7,7 +7,7 @@
 
 > 1-remind time of prayer based on your location
 
-> 2-After 5 min of the call to prayer ends the application will push notification of zikr to read it based on time of pray if in the morning will send azkar morning
+> 2-After 5 min of the call to prayer ends the application will push notification of zikr to read it based on time of pray if in the morning will send azkar of morning
 
 > 3-Qibla direction
 
