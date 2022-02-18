@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ImageBackground } from "react-native";
 import {
   Layout,
@@ -9,45 +9,36 @@ import {
   useTheme,
 } from "react-native-rapi-ui";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch, useSelector } from "react-redux";
 import HomeText from "../components/homeText";
-import adhan from 'adhan'
-import moment from 'moment';
-import * as Location from 'expo-location';
+import { setPrayTimes } from "../features/prayerTimeSlice";
+import { useGetPrayTimeQuery } from "../services/appApi";
 
 export default function ({ navigation }) {
+  const dispatch = useDispatch()
   const { isDarkmode, setTheme } = useTheme();
-  const [location, setLocation] = useState([]);
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [Pt, setPt] = useState({})
+  const { data, isError } = useGetPrayTimeQuery()
+
+  if (isError) {
+    console.log('not fetch')
+  }
+
+
+  const allPrayTimes = data?.results.datetime
+  allPrayTimes?.map((datas) => {
+    return dispatch(setPrayTimes(datas.times))
+  })
+  const TheprayTime = useSelector((state) => state.prayerTimeSlice.prayTime)
   useEffect(() => {
-    (async () => {
+    if (TheprayTime !== undefined || null) {
 
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('may Permission to access location is  denied or no there is no internet connection');
-        return;
-      }
+      setPt(TheprayTime)
+    }
 
+  }, [TheprayTime]);
 
-      const locations = await Location.getCurrentPositionAsync({});
-      const { latitude, longitude } = locations.coords
-      setLocation([latitude, longitude]);
-    })();
-  }, ['one']);
-
-  var date = new Date(Date.now());
-  var coordinates = new adhan.Coordinates(...location);
-  var params = adhan.CalculationMethod.MuslimWorldLeague()
-  params.madhab = adhan.Madhab.Hanafi;
-  var prayerTimes = new adhan.PrayerTimes(coordinates, date, params);
-  const fajr = moment(prayerTimes.fajr).format("h:mm");
-  const dhuhr = moment(prayerTimes.dhuhr).format("h:mm");
-  const asr = moment(prayerTimes.asr).format("h:mm");
-  const maghrib = moment(prayerTimes.maghrib).format("h:mm");
-  const isha = moment(prayerTimes.isha).format("h:mm");
-  var current = prayerTimes.currentPrayer();
-  var nextPray = prayerTimes.nextPrayer();
-
-
+  console.log(Pt)
   return (
 
     <Layout>
@@ -63,24 +54,7 @@ export default function ({ navigation }) {
         top: 0,
 
       }} />
-      {errorMsg &&
-        <View style={{
-          zIndex: 10,
-          position: 'absolute',
-          backgroundColor: 'white',
-          height: '120%',
-          padding: 20,
-          width: '100%',
-          top: 0,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
 
-
-        }} >
-          <Text style={{ color: 'red', fontSize: 40 }}>{errorMsg}</Text>
-        </View>
-      }
       <SafeAreaView />
 
       <View
@@ -100,11 +74,13 @@ export default function ({ navigation }) {
         </View>
         <Section backgroundColor={isDarkmode ? '#02020225' : '#ffffff2d'} style={{ marginTop: 50 }} >
           <SectionContent>
-            <HomeText time={fajr} nameTime={'بەیانیان'} />
-            <HomeText time={dhuhr} nameTime={'نیوەڕۆ'} />
-            <HomeText time={asr} nameTime={'عەسر'} />
-            <HomeText time={maghrib} nameTime={'ێوارە'} />
-            <HomeText time={isha} nameTime={'عيشا'} />
+            <HomeText time={Pt.Fajr} nameTime={'بەیانیان'} />
+            <HomeText time={Pt.Sunrise} nameTime={'بەیانیان'} />
+            <HomeText time={Pt.Dhuhr} nameTime={'بەیانیان'} />
+            <HomeText time={Pt.Asr} nameTime={'بەیانیان'} />
+            <HomeText time={Pt.Maghrib} nameTime={'بەیانیان'} />
+            <HomeText time={Pt.Isha} nameTime={'بەیانیان'} />
+
           </SectionContent>
         </Section>
       </View>
