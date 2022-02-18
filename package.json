@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
+    "@react-native-async-storage/async-storage": "^1.16.1",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
+    "@reduxjs/toolkit": "^1.7.2",
     "adhan": "^4.3.1",
     "expo": "~44.0.0",
     "expo-asset": "~8.4.5",
@@ -21,12 +23,14 @@
     "moment": "^2.29.1",
     "prayertiming": "^1.0.0",
     "react": "17.0.1",
+    "react-devtools": "^4.23.0",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-rapi-ui": "^0.2.1",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
-    "react-native-web": "0.17.1"
+    "react-native-web": "0.17.1",
+    "react-redux": "^7.2.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
