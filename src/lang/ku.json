@@ -1,0 +1,22 @@
+{
+    "language": "ku",
+    "screen": {
+        "prayerTimes": "کاتەکانی بانگ",
+        "dark": "تاریک",
+        "light": "روناک",
+        "Fajr": "بەیانی",
+        "Sunrise": "خۆرهەڵات",
+        "Dhuhr": "نیوەرۆ",
+        "Asr": "عەسر",
+        "Maghrib": "ئێوارە",
+        "Isha": "خەوتنان",
+        "home": "سەرەکی",
+        "about": "دەربارە",
+        "quran": "قورئان",
+        "lang": "زمان",
+        "ar": "عەرەبی",
+        "en": "English",
+        "ku": "کوردی",
+        "selectLanguage": "هەڵبژاردنی زمان"
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "language": "en",
+    "screen": {
+        "prayerTimes": "PrayerTimes",
+        "dark": "Dark",
+        "light": "Light",
+        "Fajr": "Fajr",
+        "Sunrise": "Sunrise",
+        "Dhuhr": "Dhuhr",
+        "Asr": "Asr",
+        "Maghrib": "Maghrib",
+        "Isha": "Isha",
+        "home": "Home",
+        "about": "About",
+        "quran": "Quran",
+        "lang": "Language",
+        "ar": "Arabic",
+        "en": "English",
+        "ku": "Kurdish",
+        "selectLanguage": "Select Language"
+    }
+}

@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 import { themeColor, useTheme } from "react-native-rapi-ui";
 import TabBarIcon from "../components/utils/TabBarIcon";
 import TabBarText from "../components/utils/TabBarText";
-
 import Home from "../screens/Home";
 import SecondScreen from "../screens/SecondScreen";
 import About from "../screens/About";
 import Profile from "../screens/Profile";
-
+import { useSelector } from "react-redux";
+import * as en from '../lang/en.json'
+import * as ar from '../lang/ar.json'
+import * as ku from '../lang/ku.json'
 const MainStack = createNativeStackNavigator();
 const Main = () => {
   return (
@@ -29,6 +30,24 @@ const Main = () => {
 const Tabs = createBottomTabNavigator();
 const MainTabs = () => {
   const { isDarkmode } = useTheme();
+  const selectedlang = useSelector((state) => state.SelectLang.Lang)
+  const [lang, setLang] = useState({})
+
+  useEffect(() => {
+    if (selectedlang == 'en' || null || undefined || '' || {}) {
+
+      setLang(en.screen)
+    }
+    if (selectedlang == 'ku') {
+      setLang(ku.screen)
+    }
+    if (selectedlang == 'ar') {
+      setLang(ar.screen)
+
+    }
+
+
+  }, [selectedlang]);
   return (
     <Tabs.Navigator
       screenOptions={{
@@ -47,7 +66,7 @@ const MainTabs = () => {
 
         options={{
           tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="نوێژکان" />
+            <TabBarText focused={focused} title={lang.home} />
           ),
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} icon={"md-home"} />
@@ -59,10 +78,10 @@ const MainTabs = () => {
         component={Profile}
         options={{
           tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="پەرەپێدەر" />
+            <TabBarText focused={focused} title={lang.quran} />
           ),
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon={"person"} />
+            <TabBarIcon focused={focused} icon={"book"} />
           ),
         }}
       />
@@ -71,7 +90,7 @@ const MainTabs = () => {
         component={About}
         options={{
           tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="دەربارە" />
+            <TabBarText focused={focused} title={lang.about} />
           ),
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} icon={"ios-information-circle"} />
