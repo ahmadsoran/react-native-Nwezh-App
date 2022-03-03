@@ -13,8 +13,6 @@
 ****
 
 ![](https://github.com/ahmadsoran/react-native-Nwezh-App/blob/master/assets/nwezh3.jpg)
-![](https://github.com/ahmadsoran/react-native-Nwezh-App/blob/master/assets/nwezh11.jpg)
-![](https://github.com/ahmadsoran/react-native-Nwezh-App/blob/master/assets/nwezh10.jpg)
 ![](https://github.com/ahmadsoran/react-native-Nwezh-App/blob/master/assets/nwezh4.jpg)
 ![](https://github.com/ahmadsoran/react-native-Nwezh-App/blob/master/assets/nwezh5.jpg)
 ![](https://github.com/ahmadsoran/react-native-Nwezh-App/blob/master/assets/nwezh6.jpg)
