@@ -9,5 +9,5 @@
 > 3-Qibla direction
 
 **10% completed**
-![](https://github.com/ahmadsoran/react-native-Nwezh-App/blob/master/assets/nwezh1.png) ![](https://github.com/ahmadsoran/react-native-Nwezh-App/blob/master/assets/nwezh2.png)
+![](https://drive.google.com/file/d/16nJTN0Gmtg-sQucwAfUxWBtd8nzy5TeW/view?usp=drivesdk) ![](https://github.com/ahmadsoran/react-native-Nwezh-App/blob/master/assets/nwezh2.png)
  
