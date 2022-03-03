@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, ImageBackground } from "react-native";
+import { View, StyleSheet, ImageBackground, ScrollView } from "react-native";
 import {
   Layout,
-  Button,
-  Text,
   Section,
   SectionContent,
   useTheme,
@@ -13,17 +11,31 @@ import { useDispatch, useSelector } from "react-redux";
 import HomeText from "../components/homeText";
 import { setPrayTimes } from "../features/prayerTimeSlice";
 import { useGetPrayTimeQuery } from "../services/appApi";
+import maccaDayImg from '../../assets/maka-day.jpg'
+import maccaNightImg from '../../assets/masjd-night.jpg'
+import { Text } from 'react-native-elements'
+import * as en from '../lang/en.json'
+import * as ar from '../lang/ar.json'
+import * as ku from '../lang/ku.json'
+import moment from 'moment'
+import * as Notifications from 'expo-notifications';
+import { requestPermissionsAsync } from "../components/permissions/notifaction";
+
 
 export default function ({ navigation }) {
   const dispatch = useDispatch()
   const { isDarkmode, setTheme } = useTheme();
   const [Pt, setPt] = useState({})
+  const [callToprayer, setCallToPrayer] = useState(null)
+  const [lang, setLang] = useState({})
+  const [left, setLeft] = useState(false)
   const { data, isError } = useGetPrayTimeQuery()
+
+  const selectedlang = useSelector((state) => state.SelectLang.Lang)
 
   if (isError) {
     console.log('not fetch')
   }
-
 
   const allPrayTimes = data?.results.datetime
   allPrayTimes?.map((datas) => {
@@ -37,14 +49,77 @@ export default function ({ navigation }) {
     }
 
   }, [TheprayTime]);
+  useEffect(() => {
+    if (selectedlang == 'en' || null || undefined || '' || {}) {
 
-  console.log(Pt)
+      setLang(en.screen)
+      setLeft(true)
+    }
+    if (selectedlang == 'ku') {
+      setLang(ku.screen)
+      setLeft(false)
+    }
+    if (selectedlang == 'ar') {
+      setLang(ar.screen)
+      setLeft(false)
+
+    }
+
+
+  }, [selectedlang]);
+
+  const today = moment(new Date(Date.now())).format('LT')
+  const hasa = '3:46 PM'
+
+  requestPermissionsAsync()
+
+
+  // Second, call the method
+
+  if (today === Pt.Maghrib) {
+
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'PrayerTime',
+        body: "ئێستا کاتی نويژە ",
+        sound: 'alert.wav',
+      },
+      trigger: null,
+    });
+  }
+
+
   return (
 
     <Layout>
-      <ImageBackground source={{ uri: 'https://muslimmatters.org/wp-content/uploads/shutterstock_168576587.jpg' }}
-        style={styles.image} resizeMode="cover" blurRadius={3}
+      <ImageBackground source={maccaNightImg}
+        style={{
+          opacity: isDarkmode ? 1 : 0,
+          width: '120%',
+          height: '120%',
+          position: 'absolute',
+          top: 0,
+          left: 0
+        }} resizeMode="cover" blurRadius={3}
       />
+
+
+
+      {/* <ImageBackground source={isDarkmode ? maccaNightImg : maccaDayImg}
+        style={styles.image} resizeMode="cover" blurRadius={3}
+      /> */}
+
+      <ImageBackground source={maccaDayImg}
+        style={{
+          opacity: isDarkmode ? 0 : 1,
+          width: '120%',
+          height: '120%',
+          position: 'absolute',
+          top: 0,
+          left: 0
+        }} resizeMode="cover" blurRadius={3}
+      />
+
       <View style={{
         // zIndex: -1,
         position: 'absolute',
@@ -55,35 +130,36 @@ export default function ({ navigation }) {
 
       }} />
 
-      <SafeAreaView />
+      <SafeAreaView style={{ minHeight: '100%' }} shouldRasterizeIOS={true}>
 
-      <View
-        style={{
-          paddingHorizontal: '5%',
-          minHeight: '100%',
-        }}
-      >
+        <ScrollView fadingEdgeLength={100} >
+
+          <View
+            style={{
+              paddingHorizontal: '5%',
+              minHeight: '100%',
+            }}
+          >
 
 
-        <View style={{ position: 'relative', width: '30%' }}>
 
-          <Button onPress={() => isDarkmode ? setTheme('light') : setTheme('dark')} color={isDarkmode ? 'gray' : 'black'} text={!isDarkmode ? 'dark' : 'lighit'} />
-        </View>
-        <View>
-          <Text style={{ fontSize: 50, color: isDarkmode ? 'white' : 'black', textAlign: 'right' }}>کاتەکانی بانگ</Text>
-        </View>
-        <Section backgroundColor={isDarkmode ? '#02020225' : '#ffffff2d'} style={{ marginTop: 50 }} >
-          <SectionContent>
-            <HomeText time={Pt.Fajr} nameTime={'بەیانیان'} />
-            <HomeText time={Pt.Sunrise} nameTime={'بەیانیان'} />
-            <HomeText time={Pt.Dhuhr} nameTime={'بەیانیان'} />
-            <HomeText time={Pt.Asr} nameTime={'بەیانیان'} />
-            <HomeText time={Pt.Maghrib} nameTime={'بەیانیان'} />
-            <HomeText time={Pt.Isha} nameTime={'بەیانیان'} />
-
-          </SectionContent>
-        </Section>
-      </View>
+            <View>
+              <Text h1 style={{ fontSize: 50, color: isDarkmode ? 'white' : '#020202ad', textAlign: left ? 'left' : 'right' }}>{lang.prayerTimes}</Text>
+            </View>
+            <Section backgroundColor={isDarkmode ? '#02020225' : '#ffffff2d'} style={{ marginTop: 50 }} >
+              <SectionContent>
+                <HomeText time={Pt.Fajr} nameTime={lang.Fajr} />
+                <HomeText time={Pt.Sunrise} nameTime={lang.Sunrise} />
+                <HomeText time={Pt.Dhuhr} nameTime={lang.Dhuhr} />
+                <HomeText time={Pt.Asr} nameTime={lang.Asr} />
+                <HomeText time={Pt.Maghrib} nameTime={lang.Maghrib} />
+                <HomeText time={Pt.Isha} nameTime={lang.Isha} />
+                { }
+              </SectionContent>
+            </Section>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </Layout >
   );
 }

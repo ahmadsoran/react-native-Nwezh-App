@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const prayerTimeSlice = createSlice({
-    name: 'prayTime',
+const SelectLang = createSlice({
+    name: 'SelectLang',
     initialState: {
-        prayTime: async () => {
+        Lang: async () => {
             try {
-                await AsyncStorage.getItem('prayTimes')
+                await AsyncStorage.getItem('selectedLang')
 
 
             } catch (e) {
@@ -15,11 +15,11 @@ const prayerTimeSlice = createSlice({
         }
     },
     reducers: {
-        setPrayTimes: (state, action) => {
-            state.prayTime = action.payload
+        setLang: (state, action) => {
+            state.Lang = action.payload
             async () => {
                 try {
-                    await AsyncStorage.setItem('prayTimes', state.prayTime);
+                    await AsyncStorage.setItem('selectedLang', state.Lang);
 
                 } catch (error) {
                     console.log(error)
@@ -30,5 +30,5 @@ const prayerTimeSlice = createSlice({
     }
 })
 
-export const setPrayTimes = prayerTimeSlice.actions.setPrayTimes
-export default prayerTimeSlice.reducer;
+export const setLang = SelectLang.actions.setLang
+export default SelectLang.reducer;
